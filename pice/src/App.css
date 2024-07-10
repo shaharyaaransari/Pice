@@ -6,7 +6,7 @@
   height: 100vh;
   background: var(--bg-color);
   font-family: 'Sofia Sans', sans-serif;
-  grid-template-columns: auto 220px;
+  grid-template-columns: auto 200px;
 }
 html, body {
   padding: 0;
