@@ -1,6 +1,7 @@
 import { createPosition } from "./helper";
 
 export const initGame = {
-      postion:[createPosition()],
-         turn:'w'
+      position:[createPosition()],
+         turn:'w',
+         candidateMoves:[]
 }
