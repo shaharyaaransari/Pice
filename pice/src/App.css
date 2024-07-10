@@ -1,0 +1,17 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  --tile-size: 100px ;
+  text-align: center;
+  --light-tile : #F0D8B6;
+  --dark-tile : #B48764;
+  --bg-color : #202020;
+}
+
+
+  @media all and (max-width:450px){
+   :root {
+    --tile-size: 50px ;
+   
+  }
+  }
