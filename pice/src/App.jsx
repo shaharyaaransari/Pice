@@ -1,13 +1,12 @@
 
 import './App.css'
+import Board from './component/Board/Board'
 
 function App() {
-  
-
   return (
-  <>
-   Home Page.
-  </>   
+  <div className='App'>
+  <Board/>
+  </ div>   
   )
 }
 

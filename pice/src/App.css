@@ -1,17 +1,15 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  --tile-size: 100px ;
-  text-align: center;
-  --light-tile : #F0D8B6;
-  --dark-tile : #B48764;
-  --bg-color : #202020;
+
+
+.App {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background: var(--bg-color);
+  font-family: 'Sofia Sans', sans-serif;
+  grid-template-columns: auto 220px;
 }
-
-
-  @media all and (max-width:450px){
-   :root {
-    --tile-size: 50px ;
-   
-  }
-  }
+html, body {
+  padding: 0;
+   margin: 0;
+   background-color: var(--bg-color);
+ }
