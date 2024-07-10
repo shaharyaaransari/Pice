@@ -1,3 +1,3 @@
  export const getCharacter = (file)=>{
-    return  String.fromCharCode(file+97)
+    return  String.fromCharCode(file+96)
   }
