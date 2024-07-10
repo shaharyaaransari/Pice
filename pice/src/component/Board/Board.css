@@ -1,30 +1,31 @@
 .board {
-    height: 90vh;
-   padding: 0;
-   position: relative;
-   margin: 30px;
-    display: grid;
-    grid-template-columns: calc(.25*var(--tile-size)) calc(8*var(--tile-size));
+  height: 90vh;
+  padding: 0;
    
-  }
-  
-  .tiles {
-    display: grid;
-    grid-template-columns: repeat(8,var(--tile-size));
-    grid-template-rows: repeat(8,var(--tile-size));
-    width: calc(8*var(--tile-size));
-  }
-  
-.tile{
-
+  position: relative;
+  margin: 30px;
+  display: grid;
+  grid-template-columns: calc(.25*var(--tile-size)) calc(8*var(--tile-size));
+  background-color: var(--bg-color);
 }
 
-.tile--light{
-    
-    background-color: var(--light-tile);
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(8, var(--tile-size));
+  grid-template-rows: repeat(8, var(--tile-size));
+  width: calc(8*var(--tile-size));
 }
 
+.tile {
+  position: relative;
+  width: var(--tile-size);
+  height: var(--tile-size);
+}
 
-.tile--dark{
-      background-color: var(--dark-tile);
+.tile--light {
+  background-color: var(--light-tile);
+}
+
+.tile--dark {
+  background-color: var(--dark-tile);
 }

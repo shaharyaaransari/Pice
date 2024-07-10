@@ -1,6 +1,6 @@
 import React from "react";
 import "./Board.css";
-import { getCharacter } from "../../char";
+import { getCharacter } from "../../helper";
 import { Ranks } from "../bits/Ranks";
 import { Files } from "../bits/Files";
 import { Pieces } from "../Pieces/Pieces";

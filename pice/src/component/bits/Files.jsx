@@ -1,6 +1,6 @@
 import React from 'react'
 import "./File.css"
-import { getCharacter } from '../../char'
+import { getCharacter } from '../../helper'
 export const Files = ({files}) => {
   return (
     <div className='files'>
