@@ -34,6 +34,7 @@ export const Piece = ({ rank, file, piece }) => {
       draggable={true}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
+        
     ></div>
   );
 };

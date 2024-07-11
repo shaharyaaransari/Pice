@@ -28,6 +28,30 @@ const arbiter = {
     }
      return moves
 },
+  checkWin :function (position)  {
+    // Count the remaining pieces for both players
+    let whitePieces = 0;
+    let blackPieces = 0;
+  
+    position.forEach(row => {
+      row.forEach(cell => {
+        if (cell.startsWith('w')) {
+          whitePieces++;
+        } else if (cell.startsWith('b')) {
+          blackPieces++;
+        }
+      });
+    });
+  
+    // Check if either player has sacrificed all their pieces
+    if (whitePieces === 0) {
+      return 'b'; // Black wins if white has no pieces left
+    } else if (blackPieces === 0) {
+      return 'w'; // White wins if black has no pieces left
+    }
+  
+    return null; // No winner yet
+  }
 
 };
 

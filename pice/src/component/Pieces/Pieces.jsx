@@ -1,9 +1,11 @@
 import React, { useState, useRef, useContext } from "react";
 import "./Pieces.css";
 import { Piece } from "./Piece";
+import Swal from "sweetalert2";
 import { copyPosition } from "../../helper";
 import { AppContext } from "../../context/Context";
 import { clearCandidate, makeNewMove } from "../../reducer/move";
+import arbiter from "../../rules/rules";
 export const Pieces = () => {
   const ref = useRef();
   const { appState, dispatch } = useContext(AppContext);
@@ -14,14 +16,30 @@ export const Pieces = () => {
     const [p, rank, file] = e.dataTransfer.getData("text").split(",");
     const { x, y } = calculateCoords(e);
     if (appState.candidateMoves?.find((m) => m[0] === x && m[1] === y)) {
-        if(p.endsWith('p') && !newPosition[x][y] && x !== rank && y !== file)
-             newPosition[rank][y] =''
-    newPosition[rank][file] = "";
-    newPosition[x][y] = p;
-    dispatch(makeNewMove({ newPosition }));
+      if (p.endsWith("p") && !newPosition[x][y] && x !== rank && y !== file)
+        newPosition[rank][y] = "";
+      newPosition[rank][file] = "";
+      newPosition[x][y] = p;
+      dispatch(makeNewMove({ newPosition }));
+
+      const winner = arbiter.checkWin(newPosition);
+      if (winner) {
+        console.log(`Player ${winner} wins!`);
+        Swal.fire({
+          title: `Player ${winner} wins!`,
+          confirmButtonText: "OK",
+        });
+        alert(`Player ${winner} wins!`)
+        // dispatch(playerQuit({ winner, quittingPlayer: null }));
+      } else {
+        dispatch(clearCandidate());
+      }
+    } else {
+      console.log("Invalid move. Please make a valid move.");
     }
-      dispatch(clearCandidate())
-  };
+    
+   
+}
 
   const calculateCoords = (e) => {
     const { left, top, width } = ref.current.getBoundingClientRect();

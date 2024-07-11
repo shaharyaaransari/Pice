@@ -1,0 +1,116 @@
+/* Base styles for navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+  }
+  
+  .navbar-logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .navbar-links li {
+    display: inline;
+  }
+  
+  .navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .navbar-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .navbar-actions .btn {
+    background: var(--dark-tile);
+    color: var(--light-tile);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .navbar-actions .btn:hover {
+    background: var(--light-tile);
+    color: var(--dark-tile);
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      padding: 10px; /* Adjust padding for better spacing */
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .navbar-links {
+      display: none; /* Hide links by default */
+      flex-direction: column; /* Stack links vertically */
+      gap: 10px; /* Reduce gap between links */
+      position: absolute;
+      width: 100%;
+      background-color: #333;
+      left: 0;
+      top: 60px;
+      text-align: center;
+    }
+  
+    .navbar-links.open {
+      display: flex; /* Display links when navbar is open */
+    }
+  
+    .navbar-links a {
+      padding: 10px;
+      border-bottom: 1px solid #555;
+    }
+  
+    .navbar-links a:last-child {
+      border-bottom: none;
+    }
+  
+    .navbar-actions {
+      margin-top: 10px; /* Add space above actions */
+    }
+  
+    .navbar-logo {
+      margin-bottom: 10px; /* Add space below logo */
+    }
+  
+    .navbar-actions .btn {
+      margin-top: 10px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column; /* Stack items vertically */
+      padding: 10px; /* Adjust padding for better spacing */
+    }
+  
+    .navbar-logo {
+      margin-bottom: 10px; /* Add space below logo */
+    }
+  
+    .navbar-links {
+      flex-direction: column; /* Stack links vertically */
+      gap: 10px; /* Reduce gap between links */
+    }
+  
+    .navbar-actions {
+      margin-top: 10px; /* Add space above actions */
+    }
+  }
+  
