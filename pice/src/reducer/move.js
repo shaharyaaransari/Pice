@@ -23,5 +23,12 @@ export const clearCandidate = ()=>{
    }
 }
 
+export const playerQuit = ({ winner, quittingPlayer }) => {
+   return {
+     type: actionTypes.PLAYER_QUIT,
+     payload: { winner, quittingPlayer },
+   };
+ };
+ 
 
 

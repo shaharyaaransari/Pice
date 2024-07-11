@@ -23,6 +23,13 @@ export const reducer = (state, action) => {
         candidateMoves: []
       };
     }
+    case actionTypes.PLAYER_QUIT: {
+      return {
+        ...state,
+        winner: action.payload.winner,
+        quittingPlayer: action.payload.quittingPlayer,
+      };
+    }
     default:
       return state;
   }

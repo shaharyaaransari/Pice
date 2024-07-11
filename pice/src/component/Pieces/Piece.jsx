@@ -8,6 +8,7 @@ export const Piece = ({ rank, file, piece }) => {
   const { appState, dispatch } = useContext(AppContext);
   const { turn, position } = appState;
   const currentPosition = position[position.length - 1];
+  const prevPosition = position[position.length - 2];
 
   const handleDragStart = (e) => {
     e.dataTransfer.effectAllowed = "move";
@@ -17,7 +18,7 @@ export const Piece = ({ rank, file, piece }) => {
     }, 0);
     
     if (turn === piece[0]) {
-      const candidateMoves = arbiter.getRegularMoves({ position: currentPosition, piece, rank, file });
+      const candidateMoves = arbiter.ValidMoves({ position: currentPosition,prevPosition, piece, rank, file });
       
       dispatch(generateCanditateMoves({ candidateMoves }));
     }
