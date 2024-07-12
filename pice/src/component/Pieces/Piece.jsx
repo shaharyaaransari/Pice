@@ -11,7 +11,6 @@ export const Piece = ({ rank, file, piece }) => {
   const prevPosition = position[position.length - 2];
 
   const handleDragStart = (e) => {
-      console.log("start")
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/plain", `${piece},${rank},${file}`);
     setTimeout(() => {
@@ -19,7 +18,7 @@ export const Piece = ({ rank, file, piece }) => {
     }, 0);
     
     if (turn === piece[0]) {
-      const candidateMoves = arbiter.ValidMoves({ position: currentPosition, prevPosition, piece, rank, file });
+      const candidateMoves = arbiter.getValidMoves({ position: currentPosition, prevPosition, piece, rank, file });
       dispatch(generateCanditateMoves({ candidateMoves }));
     }
   };

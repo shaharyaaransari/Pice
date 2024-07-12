@@ -11,32 +11,65 @@ export const Pieces = () => {
   const ref = useRef();
   const { appState, dispatch } = useContext(AppContext);
   const currentPosition = appState.position[appState.position.length - 1];
+  const currentTurn = appState.turn;
 
   const onDrop = (e) => {
     const newPosition = copyPosition(currentPosition);
     const [p, rank, file] = e.dataTransfer.getData("text").split(",");
     const { x, y } = calculateCoords(e);
-        console.log(p)
-          console.log("drop",x,y)
-    if (appState.candidateMoves?.find((m) => m[0] === x && m[1] === y)) {
-      if (p.endsWith("p") && !newPosition[x][y] && x !== rank && y !== file)
-        newPosition[rank][y] = "";
-      newPosition[rank][file] = "";
-      newPosition[x][y] = p;
-      dispatch(makeNewMove({ newPosition }));
 
-      const winner = arbiter.checkWin(newPosition);
-      if (winner) {
-        console.log(`Player ${winner} wins!`);
+    const allCaptureMoves = arbiter.getAllCaptureMoves(currentPosition, currentTurn);
+
+    if (allCaptureMoves.length > 0) {
+      if (allCaptureMoves.some(move => move[0] === x && move[1] === y)) {
+        if (p.endsWith("p") && !newPosition[x][y] && x !== rank && y !== file)
+          newPosition[rank][y] = "";
+        newPosition[rank][file] = "";
+        newPosition[x][y] = p;
+        dispatch(makeNewMove({ newPosition }));
+
+        const winner = arbiter.checkWin(newPosition);
+        if (winner) {
+          Swal.fire({
+            title: `Player ${winner} wins!`,
+            confirmButtonText: "OK",
+          });
+        } else {
+          dispatch(clearCandidate());
+        }
+      } else {
         Swal.fire({
-          title: `Player ${winner} wins!`,
+          title: "Mandatory capture available",
+          text: "You must capture if possible.",
+          icon: "error",
           confirmButtonText: "OK",
         });
-      } else {
-        dispatch(clearCandidate());
       }
     } else {
-      console.log("Invalid move. Please make a valid move.");
+      if (appState.candidateMoves?.find((m) => m[0] === x && m[1] === y)) {
+        if (p.endsWith("p") && !newPosition[x][y] && x !== rank && y !== file)
+          newPosition[rank][y] = "";
+        newPosition[rank][file] = "";
+        newPosition[x][y] = p;
+        dispatch(makeNewMove({ newPosition }));
+
+        const winner = arbiter.checkWin(newPosition);
+        if (winner) {
+          Swal.fire({
+            title: `Player ${winner} wins!`,
+            confirmButtonText: "OK",
+          });
+        } else {
+          dispatch(clearCandidate());
+        }
+      } else {
+        Swal.fire({
+          title: "Invalid move",
+          text: "Please make a valid move.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     }
   };
 

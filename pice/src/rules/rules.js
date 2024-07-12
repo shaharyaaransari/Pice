@@ -15,7 +15,7 @@ const arbiter = {
     if (piece.endsWith('p'))
       return PawnMoves({position, piece, rank, file});
   },
-  ValidMoves: function ({position, prevPosition, piece, rank, file}) {
+  getValidMoves: function ({position, prevPosition, piece, rank, file}) {
     let moves = this.getRegularMoves({position, piece, rank, file});
     
     if (piece.endsWith('p')) {
@@ -32,6 +32,19 @@ const arbiter = {
     }
     
     return moves;
+  },
+  getAllCaptureMoves: function(position, turn) {
+    let captureMoves = [];
+    for (let rank = 0; rank < 8; rank++) {
+      for (let file = 0; file < 8; file++) {
+        const piece = position[rank][file];
+        if (piece.startsWith(turn)) {
+          const moves = this.getValidMoves({ position, piece, rank, file });
+          captureMoves = captureMoves.concat(moves.filter(([x, y]) => position[x][y] !== ''));
+        }
+      }
+    }
+    return captureMoves;
   },
   checkWin: function (position) {
     let whitePieces = 0;
@@ -58,4 +71,3 @@ const arbiter = {
 };
 
 export default arbiter;
-
