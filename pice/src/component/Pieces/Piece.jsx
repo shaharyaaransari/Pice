@@ -1,8 +1,8 @@
+import React, { useContext } from "react";
 import "./Pieces.css";
 import { AppContext } from "../../context/Context";
-import { useContext } from "react";
-import arbiter from "../../rules/rules";
 import { generateCanditateMoves } from "../../reducer/move";
+import arbiter from "../../rules/rules";
 
 export const Piece = ({ rank, file, piece }) => {
   const { appState, dispatch } = useContext(AppContext);
@@ -11,6 +11,7 @@ export const Piece = ({ rank, file, piece }) => {
   const prevPosition = position[position.length - 2];
 
   const handleDragStart = (e) => {
+      console.log("start")
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/plain", `${piece},${rank},${file}`);
     setTimeout(() => {
@@ -18,8 +19,7 @@ export const Piece = ({ rank, file, piece }) => {
     }, 0);
     
     if (turn === piece[0]) {
-      const candidateMoves = arbiter.ValidMoves({ position: currentPosition,prevPosition, piece, rank, file });
-      
+      const candidateMoves = arbiter.ValidMoves({ position: currentPosition, prevPosition, piece, rank, file });
       dispatch(generateCanditateMoves({ candidateMoves }));
     }
   };
@@ -34,7 +34,6 @@ export const Piece = ({ rank, file, piece }) => {
       draggable={true}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
-        
     ></div>
   );
 };

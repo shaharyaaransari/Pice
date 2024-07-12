@@ -3,33 +3,37 @@ import { BishopMoves, getRookMoves, KingMoves, KnightMoves, PawnCaptures, PawnMo
 const arbiter = {
   getRegularMoves: function({ position, piece, rank, file }) {
     if (piece.endsWith('n')) 
-        return KnightMoves({position,rank,file});
-        if (piece.endsWith('b'))
-            return BishopMoves({position,piece,rank,file});
+      return KnightMoves({position, rank, file});
+    if (piece.endsWith('b'))
+      return BishopMoves({position, piece, rank, file});
     if (piece.endsWith('r'))
-    return getRookMoves({position, piece, rank, file});
+      return getRookMoves({position, piece, rank, file});
     if (piece.endsWith('q'))
-        return QueenMoves({position,piece,rank,file});
+      return QueenMoves({position, piece, rank, file});
     if (piece.endsWith('k'))
-        return KingMoves({position,piece,rank,file});
+      return KingMoves({position, piece, rank, file});
     if (piece.endsWith('p'))
-        return PawnMoves({position,piece,rank,file})
-   
+      return PawnMoves({position, piece, rank, file});
   },
-  ValidMoves : function ({position,prevPosition,piece,rank,file}) {
-    let moves = this.getRegularMoves({position,piece,rank,file})
+  ValidMoves: function ({position, prevPosition, piece, rank, file}) {
+    let moves = this.getRegularMoves({position, piece, rank, file});
     
-
-    if (piece.endsWith('p')){
-        moves = [
-            ...moves,
-            ...PawnCaptures({position,prevPosition,piece,rank,file})
-        ]
+    if (piece.endsWith('p')) {
+      moves = [
+        ...moves,
+        ...PawnCaptures({position, prevPosition, piece, rank, file})
+      ];
     }
-     return moves
-},
-  checkWin :function (position)  {
-    // Count the remaining pieces for both players
+
+    // Filter for capture moves
+    const captureMoves = moves.filter(([x, y]) => position[x][y] !== '');
+    if (captureMoves.length > 0) {
+      return captureMoves;
+    }
+    
+    return moves;
+  },
+  checkWin: function (position) {
     let whitePieces = 0;
     let blackPieces = 0;
   
@@ -43,7 +47,6 @@ const arbiter = {
       });
     });
   
-    // Check if either player has sacrificed all their pieces
     if (whitePieces === 0) {
       return 'b'; // Black wins if white has no pieces left
     } else if (blackPieces === 0) {
@@ -52,7 +55,7 @@ const arbiter = {
   
     return null; // No winner yet
   }
-
 };
 
 export default arbiter;
+
